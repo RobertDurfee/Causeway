@@ -1,7 +1,7 @@
 {
   "name": "causeway-cli",
   "version": "1.0.0",
-  "description": "Command-line interface for a remote, bidirectional pipe over secure websockets with certificate authentication.",
+  "description": "Command-line interface for an encrypted, authenticated bidirectional pipe over WebSockets.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
