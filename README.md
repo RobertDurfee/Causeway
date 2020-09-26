@@ -1,6 +1,6 @@
 # Causeway
 
-An encrypted, authenticated bidirectional pipe over WebSockets.
+An encrypted, authenticated, bidirectional pipe over WebSockets.
 
 ## Problem
 
