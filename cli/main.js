@@ -1,14 +1,19 @@
+const os = require('os')
 const https = require('https')
 const fs = require('fs')
 const WebSocket = require('ws')
 const program = require('commander')
 
+const resolveHome = path => {
+    return path.replace('~', os.homedir())
+}
+
 const server = () => {
     const server = https.createServer({
-        cert: fs.readFileSync('my.cert.pem'),
-        ca: [ fs.readFileSync('my.cert.pem') ],
-        key: fs.readFileSync('my.key.pem'),
-        passphrase: fs.readFileSync('my.key.pem.pass', { encoding: 'utf-8' }),
+        cert: fs.readFileSync(resolveHome('~/.cw/my.cert.pem')),
+        ca: [ fs.readFileSync(resolveHome('~/.cw/my.cert.pem')) ],
+        key: fs.readFileSync(resolveHome('~/.cw/my.key.pem')),
+        passphrase: fs.readFileSync(resolveHome('~/.cw/my.key.pem.pass'), { encoding: 'utf-8' }),
         requestCert: true,
         rejectUnauthorized: true
     })
@@ -52,13 +57,13 @@ const server = () => {
 const client = url => {
     console.error(`[cw] Waiting for connection...`)
     const ws = new WebSocket(`wss://${url}/`, {
-        cert: fs.readFileSync('my.cert.pem'),
-        ca: [ fs.readFileSync('my.cert.pem') ],
-        key: fs.readFileSync('my.key.pem'),
-        passphrase: fs.readFileSync('my.key.pem.pass', { encoding: 'utf-8' }),
+        cert: fs.readFileSync(resolveHome('~/.cw/my.cert.pem')),
+        ca: [ fs.readFileSync(resolveHome('~/.cw/my.cert.pem')) ],
+        key: fs.readFileSync(resolveHome('~/.cw/my.key.pem')),
+        passphrase: fs.readFileSync(resolveHome('~/.cw/my.key.pem.pass'), { encoding: 'utf-8' }),
         rejectUnathorized: true,
         checkServerIdentity: (hostname, cert) => {
-            const cn = fs.readFileSync('my.cert.pem.cn')
+            const cn = fs.readFileSync(resolveHome('~/.cw/my.cert.pem.cn'))
             if (cert.subject.CN != cn) {
                 return new Error(`Remote CN '${cert.subject.CN}' does not match '${cn}'`)
             }

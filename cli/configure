@@ -3,11 +3,13 @@
 PASS=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
 CN=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)
 
-openssl genrsa -aes256 -passout pass:$PASS -out my.key.pem 2048
-echo -n $PASS > my.key.pem.pass
-chmod 400 my.key.pem*
-openssl req -new -key my.key.pem -passin pass:$PASS -sha256 -out my.csr.pem -subj "/CN=$CN"
-openssl x509 -req -in my.csr.pem -signkey my.key.pem -passin pass:$PASS -out my.cert.pem -days 365 -sha256
-echo -n $CN > my.cert.pem.cn
-chmod 444 my.cert.pem*
-rm my.csr.pem
+mkdir ~/.cw
+
+openssl genrsa -aes256 -passout pass:$PASS -out ~/.cw/my.key.pem 2048
+echo -n $PASS > ~/.cw/my.key.pem.pass
+chmod 400 ~/.cw/my.key.pem*
+openssl req -new -key ~/.cw/my.key.pem -passin pass:$PASS -sha256 -out ~/.cw/my.csr.pem -subj "/CN=$CN"
+openssl x509 -req -in ~/.cw/my.csr.pem -signkey ~/.cw/my.key.pem -passin pass:$PASS -out ~/.cw/my.cert.pem -days 365 -sha256
+echo -n $CN > ~/.cw/my.cert.pem.cn
+chmod 444 ~/.cw/my.cert.pem*
+rm ~/.cw/my.csr.pem
