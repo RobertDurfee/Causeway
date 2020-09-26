@@ -11,7 +11,7 @@ Suppose you want to create a bidirectional pipe between `prog1` and `prog2`, cro
  
 But `prog1` and `prog2` are on two separate hosts. 
 
-## Straw Man Solution: `nc`
+## Solution: `nc`
 
 On the first host (`192.168.1.35`):
 
