@@ -1,6 +1,6 @@
 # Causeway
 
-A remote, bidirectional pipe utility over secure WebSockets with certificate authentication.
+A bidirectional pipe over secure WebSockets.
 
 ## Problem
 
@@ -9,9 +9,23 @@ Suppose you want to create a bidirectional pipe between `prog1` and `prog2`:
     $ mkfifo fifo
     $ prog1 < fifo | prog2 > fifo
  
-But `prog1` and `prog2` are on two separate hosts.
+But `prog1` and `prog2` are on two separate hosts. 
 
-## Solution
+## Solution: `nc`
+
+On the first host (`192.168.1.35`):
+
+    $ mkfifo fifo
+    $ prog1 < fifo | nc -l -p 3333 > fifo
+
+On the second host (`192.168.1.58`):
+
+    $ mkfifo fifo
+    $ nc 192.168.1.35 3333 < fifo | prog2 > fifo
+
+This works okay, but does not encrypt data or authenticate endpoints.
+
+## Solution: `cw`
 
 On the first host (`192.168.1.35`):
 
@@ -27,8 +41,8 @@ On the second host (`192.168.1.58`):
     [cw] Waiting for connection...
     [cw] Remote wss://192.168.1.35:33207/ opened
 
-The first host should also confirm the connection:
+The first host confirms the connection:
 
     [cw] Remote wss://192.168.1.58:43400/ connected
 
-Meanwhile, any unsent data is buffered.
+All data is encrypted and endpoints are authenticated using certificates.
