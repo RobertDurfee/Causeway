@@ -4,7 +4,7 @@ An encrypted, authenticated, bidirectional pipe over WebSockets.
 
 ## Problem
 
-Suppose you want to create a bidirectional pipe between `prog1` and `prog2`:
+Suppose you want to create a bidirectional pipe between `prog1` and `prog2`, cross-linking `STDIN` and `STDOUT`:
 
     $ mkfifo fifo
     $ prog1 < fifo | prog2 > fifo
