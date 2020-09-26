@@ -23,7 +23,7 @@ On the second host (`192.168.1.58`):
     $ mkfifo fifo
     $ nc 192.168.1.35 3333 < fifo | prog2 > fifo
 
-This works okay, but does not encrypt data or authenticate endpoints.
+This works okay locally, but does not encrypt data or authenticate endpoints.
 
 ## Solution: `cw`
 
@@ -37,7 +37,7 @@ On the first host (`192.168.1.35`):
 On the second host (`192.168.1.58`):
 
     $ mkfifo fifo
-    $ cw -d wss://192.168.1.35:33207 < fifo | prog2 > fifo
+    $ cw -d 192.168.1.35:33207 < fifo | prog2 > fifo
     [cw] Waiting for connection...
     [cw] Remote wss://192.168.1.35:33207/ opened
 
@@ -46,3 +46,5 @@ The first host confirms the connection:
     [cw] Remote wss://192.168.1.58:43400/ connected
 
 All data is encrypted and endpoints are authenticated using certificates.
+
+_(Note: One host must first run `./configure` and then externally share the certificates with the other host. This only needs to be done once, however.)_
