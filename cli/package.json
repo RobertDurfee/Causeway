@@ -1,0 +1,31 @@
+{
+  "name": "causeway-cli",
+  "version": "1.0.0",
+  "description": "Command-line interface for a remote, bidirectional pipe over secure websockets with certificate authentication.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobertDurfee/Causeway.git"
+  },
+  "keywords": [
+    "remote",
+    "bidirectional",
+    "pipe",
+    "secure",
+    "client",
+    "certificate"
+  ],
+  "author": "Robert Durfee <rbd@mit.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RobertDurfee/Causeway/issues"
+  },
+  "homepage": "https://github.com/RobertDurfee/Causeway#readme",
+  "dependencies": {
+    "commander": "^6.1.0",
+    "ws": "^7.3.1"
+  }
+}
